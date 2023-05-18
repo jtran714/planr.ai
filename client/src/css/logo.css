@@ -1,0 +1,37 @@
+.logo {
+    font-family: 'Arial', sans-serif;
+    font-size: 150px;
+    font-weight: bold;
+    color: transparent;
+    background: linear-gradient(45deg, #43c5e6, #3a5bc7);
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: gradientText 5s infinite;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+    text-align: center;
+    top: 55%;
+  }
+  
+  @keyframes gradientText {
+    0% {
+      width: 0;
+      color: transparent;
+    }
+    50% {
+      width: 100%;
+      color: transparent;
+    }
+    60% {
+      width: 100%;
+      color: #FFFFFF;
+    }
+    70% {
+      width: 100%;
+      color: transparent;
+    }
+    100% {
+      width: 100%;
+      color: transparent;
+    }
+  }
