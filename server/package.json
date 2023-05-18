@@ -1,7 +1,6 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -21,6 +20,9 @@
     "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.22",
-    "pg": "^8.11.0"
-  }
+    "pg": "^8.11.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {},
+  "description": ""
 }
