@@ -1,8 +1,4 @@
 #make sure that when Windows users clone the files in the repository, that special files like SQL files and Shell scripts have the expected LF line endings rather than CRLF line endings that Windows uses by default
 * text=auto
 *.sql text eol=lf
-<<<<<<< HEAD
 *.sh text eol=lf
-=======
-*.sh text eol=lf
->>>>>>> ba34b452ab82ae26ad3dd4df70f59680b3b92dda
