@@ -37,6 +37,76 @@
   }
 }
 
+body {
+  background-color: rgb(95, 95, 138);
+}
+/* LOGO STARTS HERE */
+
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Permanent+Marker&display=swap');
+
+
+.logo {
+    font-family: 'Lobster', cursive;
+    font-size: 150px;
+    font-weight: bold;
+    color: transparent;
+    background: linear-gradient(45deg, #43c5e6, #3a5bc7);
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: gradientText 5s forwards;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+    text-align: center;
+    padding-top: 100px;
+  }
+  
+  @keyframes gradientText {
+    0% {
+      width: 0;
+      color: transparent;
+    }
+    50% {
+      width: 100%;
+      color: transparent;
+    }
+    60% {
+      width: 100%;
+      color: #FFFFFF;
+    }
+    70% {
+      width: 100%;
+      color: transparent;
+    }
+    100% {
+      width: 100%;
+      color: transparent;
+    }
+  }
+.p-info {
+  font-size: xx-large;
+  text-align: center;
+  color: white;
+  font-family: 'Lobster', cursive;
+}
+
+.text-transition {
+  color: transparent;
+  animation: textFadeIn 15s forwards;
+}
+
+@keyframes textFadeIn {
+  0% {
+    color: transparent;
+  }
+  100% {
+    color: white;
+  }
+}
+
+/* LOGO ENDS HERE */
+
+
+
 /* HOME STARTS HERE */
 .home-section {
   text-align: center;
@@ -44,7 +114,10 @@
 .logo-p {
   font-size: 50px;
 }
-
+.searchbar {
+  padding: 250px;
+  padding-bottom: 700px;
+}
 
 
 

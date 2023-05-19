@@ -1,14 +1,20 @@
 import React from 'react'
-import '../css/logo.css';
+import { Helmet } from 'react-helmet';
+
 
 const Home = () => {
   return (
     <>
     <section>
         <div className="logo">
-            Planr.ai
+            planr.ai
         </div>
+        <p className="p-info text-transition">plan your trips with planr.ai</p>
     </section>
+    <div className="input-group flex-nowrap searchbar">
+      <span className="input-group-text" id="addon-wrapping">Search</span>
+      <input type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" />
+    </div>
     </>
   )
 }
