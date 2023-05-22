@@ -22,11 +22,42 @@ app.use(cors());
 const { Pool } = pkg;
 const pool = new Pool({
     user: process.env.DB_USER,
-    host: process.env.DB_HOST,
+    host: 'db',
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
   });
+  (async () => {
+    try {
+      await createTable();
+      const port = process.env.PORT || 3000;
+      app.listen(port, () => {
+        console.log(`Server running on port ${port}`);
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  })();
+
+  const createTable = async () => {
+    try {
+      const client = await pool.connect();
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS users (
+          id SERIAL PRIMARY KEY,
+          name TEXT,
+          email TEXT UNIQUE
+        )
+      `);
+      console.log("Successfully created table users");
+      client.release();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  createTable();
+
 
   app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -46,17 +77,18 @@ const pool = new Pool({
     }
   });
 
-  app.get('/testdb', async (req, res) => {
-    try {
-        const client = await pool.connect();
-        await client.query('SELECT NOW()');
-        res.send('Successfully connected to the database');
-        client.release();
-    } catch (err) {
-        console.error(err);
-        res.send('Failed to connect to the database');
-    }
-});
+  //testing
+//   app.get('/testdb', async (req, res) => {
+//     try {
+//         const client = await pool.connect();
+//         await client.query('SELECT NOW()');
+//         res.send('Successfully connected to the database');
+//         client.release();
+//     } catch (err) {
+//         console.error(err);
+//         res.send('Failed to connect to the database');
+//     }
+// });
 
   // Error handling middleware
 app.use((err, req, res, next) => {

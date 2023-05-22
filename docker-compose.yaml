@@ -1,55 +1,50 @@
-volumes:
-    postgres-data:
-        external: true
-    pg-admin:
-        external: true
-
+version: '3.8'
 services:
-  pg-admin:
-    image: dpage/pgadmin4
-    volumes:
-      - pg-admin:/var/lib/pgadmin
-    ports:
-      - 8082:80
+  db:
+    image: postgres:13
+    platform: linux/amd64
+    restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: planr@email.com
-      PGADMIN_DEFAULT_PASSWORD: pass
-      PGADMIN_DISABLE_POSTFIX: 1
-
-    postgres:
-        build:
-            dockerfile: ./Dockerfile.dev
-        volumes:
-            - postgres-data:/var/lib/postgresql/data
-        environment:
-            - POSTGRES_USER=admin
-            - POSTGRES_PASSWORD=pass
-        ports:
-            - 15432:5432
-    
-    server:
-        build:
-            context: ./server
-            dockerfile: ./Dockerfile.dev
-        ports:
-            - "9000:9000"
-        volumes:
-            -./server:/app
-        environment:
-            DATABASE_URL: postgresql://server:password@postgres
-            WAIT_HOST: postgres:5432
-
-    client:
-        image: node:lts-bullseye
-        command: /bin/bash run.sh
-        working_dir: /app
-        volumes:
-            - ./client:/app
-        ports: 
-            -"3000:3000"
-        environment:
-            HOST_OS: ${OS}
-            NODE_ENV: development
-            HOST: "0.0.0.0"
-            PUBLIC_URL: http://localhost:3000
-            REACT_APP_USERS_API_HOST: http://localhost:8000
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DB_USER: postgres
+      DB_HOST: db
+      DB_NAME: postgres
+      DB_PASSWORD: password
+      DB_PORT: 5432
+      PORT: 3000
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3001:3001"
+  pgadmin:
+    image: dpage/pgadmin4
+    platform: linux/amd64
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'pgadmin4@pgadmin.org'
+      PGADMIN_DEFAULT_PASSWORD: 'admin'
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+volumes:
+  postgres_data:
+    external: true
+  pgadmin_data: {}
